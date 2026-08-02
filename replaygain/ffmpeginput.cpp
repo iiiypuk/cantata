@@ -1,6 +1,7 @@
 /*
  * Cantata
  *
+ * 2026 by Alexander Popov <iiiypuk@fastmail.fm>
  * Copyright (c) 2011-2022 Craig Drummond <craig.p.drummond@gmail.com>
  *
  */
@@ -253,7 +254,7 @@ FfmpegInput::~FfmpegInput()
 {
     if (handle) {
         mutex.lock();
-        avcodec_close(handle->codecContext);
+        avcodec_free_context(&handle->codecContext);
         #if LIBAVFORMAT_VERSION_INT >= AV_VERSION_INT(53, 21, 0)
         avformat_close_input(&handle->formatContext);
         #else
@@ -281,7 +282,8 @@ size_t FfmpegInput::totalFrames() const
 
 unsigned int FfmpegInput::channels() const
 {
-    return handle ? handle->codecContext->channels : 0;
+    // return handle ? handle->codecContext->channels : 0;
+    return handle ? handle->codecContext->ch_layout.nb_channels : 0;
 }
 
 unsigned long FfmpegInput::sampleRate() const
@@ -296,11 +298,11 @@ float * FfmpegInput::buffer() const
 
 bool FfmpegInput::setChannelMap(int *st) const
 {
-    if (handle && handle->codecContext->channel_layout) {
+    if (handle && handle->codecContext->ch_layout.nb_channels) {
         unsigned int mapIndex = 0;
         int bitCounter = 0;
-        while (mapIndex < (unsigned) handle->codecContext->channels) {
-            if (handle->codecContext->channel_layout & (1 << bitCounter)) {
+        while (mapIndex < (unsigned) handle->codecContext->ch_layout.nb_channels) {
+            if (handle->codecContext->ch_layout.nb_channels & (1 << bitCounter)) {
                 switch (1 << bitCounter) {
                 #if LIBAVFORMAT_VERSION_MAJOR >= 54
                 case AV_CH_FRONT_LEFT:
@@ -470,8 +472,7 @@ free_packet:
 write_to_buffer: ;
     size_t numberRead=handle->frame->nb_samples;
     /* TODO: fix this */
-    int numChannels = handle->codecContext->channels;
-    // channels = handle->frame->channels;
+    int numChannels = handle->codecContext->ch_layout.nb_channels;
 
     if (handle->frame->nb_samples * numChannels > (int)sizeof handle->buffer) {
         return 0;
