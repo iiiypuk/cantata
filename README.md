@@ -1,12 +1,14 @@
-Cantata
-=======
+# 🎧 Cantata
 
-**NOTE** After 10 years, development of Cantata has now ceased, and this repository is read-only. v2.5.0 is the last released version.
+🇷🇺 [Русский](README.ru.md) | 🇺🇸 [English](README.md)
 
-![ScreenShot](screenshots/mainwindow.png)
+> **NOTE**
+> **Craig Drummond:** After 10 years, development of Cantata has now ceased, and this repository is read-only. v2.5.0 is the last released version.
 
+![ScreenShot](screenshots/qt6-f1rst.png)
 
-A graphical (Qt5) client for MPD, supporting the following features:
+<details>
+  <summary>ℹ️ A graphical (Qt6) client for MPD, supporting the following features</summary>
 
   1. Supports Linux, macOS, Windows, and Haiku. **NOTE:** Only Linux actively supported as of 2.3.3
   2. Multiple MPD collections.
@@ -26,14 +28,8 @@ A graphical (Qt5) client for MPD, supporting the following features:
  16. MPRISv2 DBUS interface.
  17. Ratings support.
  18. "Partitions" support.
+</details>
 
 Cantata started off as a fork of QtMPC, however, the code (and user interface) is now *very* different to that of QtMPC.
-For more detailed information, please refer to the main [README](https://raw.githubusercontent.com/CDrummond/cantata/master/README)
-
-
-## Donations
-
-I develop Cantata purely for fun, so no donations are required. However, seeing as I have been asked about this a few times, here is a link...
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2X2CTDUH27V9L&source=url)
+For more detailed information, please refer to the main [README](README).
 
